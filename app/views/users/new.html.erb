@@ -1,0 +1,44 @@
+<h1>Sign Up</h1>
+<%= form_for @user, url: {action: 'create'} do |f| %>
+	<%= f.text_field :first_name, :placeholder => "First Name" %>
+	<% if @user.errors.full_messages_for(:first_name).first %>
+		<div class="card card-panel red red-lighten-1">
+			<% @user.errors.full_messages_for(:first_name).each do |error| %>
+				<%= error %><br>
+			<% end %>
+		</div>
+	<% end %>
+	<%= f.text_field :last_name, :placeholder => "Last Name" %>
+	<% if @user.errors.full_messages_for(:last_name).first %>
+		<div class="card card-panel red red-lighten-1">
+			<% @user.errors.full_messages_for(:last_name).each do |error| %>
+				<%= error %><br>
+			<% end %>
+		</div>
+	<% end %>
+	<%= f.text_field :email, :placeholder => "Email" %>
+	<% if @user.errors.full_messages_for(:email).first %>
+		<div class="card card-panel red red-lighten-1">
+			<% @user.errors.full_messages_for(:email).each do |error| %>
+				<%= error %><br>
+			<% end %>
+		</div>
+	<% end %>
+	<%= f.text_field :username, :placeholder => "Username" %>
+	<% if @user.errors.full_messages_for(:username).first %>
+		<div class="card card-panel red red-lighten-1">
+			<% @user.errors.full_messages_for(:username).each do |error| %>
+				<%= error %><br>
+			<% end %>
+		</div>
+	<% end %>
+	<%= f.text_field :password, :placeholder => "Password" %>
+	<% if @user.errors.full_messages_for(:password).first %>
+		<div class="card card-panel red red-lighten-1">
+			<% @user.errors.full_messages_for(:password).each do |error| %>
+				<%= error %><br>
+			<% end %>
+		</div>
+	<% end %>
+	<%= f.submit "Create", :class => "btn waves-effect" %>
+<% end %>
