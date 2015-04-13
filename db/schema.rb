@@ -11,9 +11,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150412011115) do
+ActiveRecord::Schema.define(version: 20150413020052) do
+
+  create_table "leader_boards", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "lobbies", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "users", force: :cascade do |t|
+    t.integer  "lobby_id"
     t.string   "first_name"
     t.string   "last_name"
     t.string   "encrypted_password"
@@ -23,5 +35,7 @@ ActiveRecord::Schema.define(version: 20150412011115) do
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
   end
+
+  add_index "users", ["lobby_id"], name: "index_users_on_lobby_id"
 
 end
