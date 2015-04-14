@@ -1,4 +1,5 @@
 class GamesController < ApplicationController
+	respond_to :html, :js
 	def new
 		@game = Game.new
 	end
@@ -16,6 +17,14 @@ class GamesController < ApplicationController
 			flash.alert = "Unable to create game."
 			render :new
 		end
+	end
+
+	def send_game
+
+	end
+
+	def get_game
+
 	end
 
 	private
