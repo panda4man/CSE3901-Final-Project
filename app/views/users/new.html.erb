@@ -34,7 +34,7 @@
 					<% end %>
 				</div>
 			<% end %>
-			<%= f.text_field :password, :placeholder => "Password" %>
+			<%= f.password_field :password, :placeholder => "Password" %>
 			<% if @user.errors.full_messages_for(:password).first %>
 				<div class="card card-panel red red-lighten-1">
 					<% @user.errors.full_messages_for(:password).each do |error| %>

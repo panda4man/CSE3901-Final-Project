@@ -5,11 +5,18 @@ class GamesController < ApplicationController
 
 	def create
 		@game = Game.new(game_params)
-		if @game.valid?
+		# Set first id to current user
+		@game.first_user_id = @current_user.id
+		# Grab second user by email
+		@to = User.find_by_email!(@game.invitee_email)
+
+		if @game.valid? && !@to.nil?
+			@game.second_user_id = @to.id
 			if @game.save
-				@to = User.find_by_id(params[:second_user_id])
-				GameMailer.game_invite(@current_user, @to).deliver_later
+				GameMailer.game_invite(@current_user, @to, @game).deliver_later
+				redirect_to @game, :flash => {:notice => "Invite successfully sent."}
 			else
+				flash.alert = "Unable to save game."
 				render :new
 			end
 		else
@@ -20,6 +27,9 @@ class GamesController < ApplicationController
 
 	def show
 		@game = Game.find_by_id(params[:id])
+		if @game.nil?
+      redirect_to action: 'new', :flash => {:notice => "Error loading game."}
+    end
 	end
 
 	def send_game
