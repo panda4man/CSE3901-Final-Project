@@ -1,1 +1,10 @@
-<%= @user.first_name %>&nbsp;<%= @user.id%>
+<div class="row">
+	<div class="col s6 offset-s3 center-align">
+		<%= link_to "Start Game", new_game_path, :class => "btn waves-affect" %>
+	</div>
+</div>
+<div class="row">
+	<dv class="col s6 offset-s3 center-align">
+		<%= @user.first_name %>&nbsp;<%= @user.id%>
+	</dv>
+</div>
