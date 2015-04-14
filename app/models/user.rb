@@ -1,6 +1,5 @@
 class User < ActiveRecord::Base
 	attr_accessor :password
-	belongs_to :lobby
 
 	email_regex = /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]+)\z/i
 
