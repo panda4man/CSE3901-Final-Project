@@ -1,5 +1,4 @@
 class GamesController < ApplicationController
-	respond_to :html, :js
 	def new
 		@game = Game.new
 	end
@@ -19,12 +18,22 @@ class GamesController < ApplicationController
 		end
 	end
 
-	def send_game
-
+	def show
+		@game = Game.find_by_id(params[:id])
 	end
 
-	def get_game
+	def send_game
+		respond_to do |format|
+  		format.json { render json: @current_user }
+  		format.html {redirect_to users_path}
+  	end
+  end
 
+	def get_game
+		respond_to do |format|
+  		format.json { render json: @current_user }
+  		format.html {redirect_to users_path}
+  	end
 	end
 
 	private
