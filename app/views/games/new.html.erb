@@ -1,0 +1,24 @@
+<div class="row">
+	<div class="col s6 offset-s3">
+	<h1>Sign Up</h1>
+		<%= form_for @game, url: {action: 'create'} do |f| %>
+			<%= f.text_field :name, :placeholder => "Game Name" %>
+			<% if @game.errors.full_messages_for(:name).first %>
+				<div class="card card-panel red red-lighten-1">
+					<% @game.errors.full_messages_for(:name).each do |error| %>
+						<%= error %><br>
+					<% end %>
+				</div>
+			<% end %>
+			<%= f.text_field :invitee_email, :placeholder => "Friends Email" %>
+			<% if @game.errors.full_messages_for(:invitee_email).first %>
+				<div class="card card-panel red red-lighten-1">
+					<% @game.errors.full_messages_for(:invitee_email).each do |error| %>
+						<%= error %><br>
+					<% end %>
+				</div>
+			<% end %>
+			<%= f.submit "Send Invite", :class => "btn waves-effect" %>
+		<% end %>
+	</div>
+</div>

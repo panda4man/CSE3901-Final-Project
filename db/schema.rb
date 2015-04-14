@@ -11,7 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150413020052) do
+ActiveRecord::Schema.define(version: 20150414013157) do
+
+  create_table "games", force: :cascade do |t|
+    t.integer  "first_user_id"
+    t.integer  "second_user_id"
+    t.string   "name"
+    t.datetime "start_time"
+    t.string   "invitee_email"
+    t.integer  "first_user_progress",  default: 0
+    t.integer  "second_user_progress", default: 0
+    t.integer  "winner"
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
+  end
 
   create_table "leader_boards", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -25,7 +38,7 @@ ActiveRecord::Schema.define(version: 20150413020052) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.integer  "lobby_id"
+    t.integer  "game_id"
     t.string   "first_name"
     t.string   "last_name"
     t.string   "encrypted_password"
@@ -36,6 +49,6 @@ ActiveRecord::Schema.define(version: 20150413020052) do
     t.datetime "updated_at",         null: false
   end
 
-  add_index "users", ["lobby_id"], name: "index_users_on_lobby_id"
+  add_index "users", ["game_id"], name: "index_users_on_game_id"
 
 end

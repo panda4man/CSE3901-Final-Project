@@ -11,9 +11,5 @@ class ApplicationController < ActionController::Base
     unless current_user
       redirect_to login_path, :flash => {alert: "You need to login"}
     end
-    #@current_user = User.find_by(id: session[:user_id])
-    #if @current_user.nil?
-    #	redirect_to login_url, alert: "You need to login"
-    #end
   end
 end
