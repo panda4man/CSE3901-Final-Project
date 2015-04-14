@@ -2,10 +2,11 @@ Rails.application.routes.draw do
   get "/login" => "sessions#new", as: :login
   post "/login" => "sessions#create"
   get "/logout" => "sessions#destroy", as: :logout
-  post "/run-game" => "games#send_game", as: :sendgame
-  get "/run-game" => "games#get_game", as: :getgame
 
-  resources :users, :sessions, :leader_boards
+   post "/run-game" => "games#send_game", as: :sendgame
+   get "/run-game" => "games#get_game", as: :getgame
+
+  resources :users, :sessions, :leader_boards, :games
 
   # You can have the root of your site routed with "root"
   root 'landing#index'
