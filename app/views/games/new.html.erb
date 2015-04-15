@@ -11,6 +11,14 @@
 					<% end %>
 				</div>
 			<% end %>
+			<%= f.text_field :level, :placeholder => "Game Level (1-5)" %>
+			<% if @game.errors.full_messages_for(:level).first %>
+				<div class="card card-panel red red-lighten-1">
+					<% @game.errors.full_messages_for(:level).each do |error| %>
+						<%= error %><br>
+					<% end %>
+				</div>
+			<% end %>
 			<%= f.text_field :invitee_email, :placeholder => "Friends Email" %>
 			<% if @game.errors.full_messages_for(:invitee_email).first %>
 				<div class="card card-panel red red-lighten-1">
