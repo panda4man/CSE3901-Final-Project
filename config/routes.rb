@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   post "/login" => "sessions#create"
   get "/logout" => "sessions#destroy", as: :logout
 
-   post "/run-game" => "games#send_game", as: :sendgame
+   post "/run-game" => "games#update_game", as: :sendgame
    get "/run-game" => "games#get_game", as: :getgame
 
   resources :users, :sessions, :leader_boards, :games
