@@ -22,6 +22,98 @@
 
 <script type="text/javascript">
 	$(document).ready(function () {
+		/**
+		 * Get the correct or incorrect letters
+		 * @param  bool is to toggle between correct/incorrect array
+		 * @return Array
+		 */
+		function getLetters(bool){
+			if(bool){
+				return JSON.parse(localStorage.getItem('CSE3901_incorrect_words'));
+			} else {
+				return JSON.parse(localStorage.getItem('CSE3901_correct_words'));
+			}
+		}
+
+		/**
+		 * Add a letter to either correct or incorrect array
+		 * @param letter String
+		 * @param bool 	boolean to toggle between correct and incorrect
+		 */
+		function addLetter(bool, letter){
+			var letters = getLetters(bool);
+			if(bool){
+				//put it in correct array
+				letters.push(letter);
+			} else {
+				//put it in incorrect array
+				letters.push(letter);
+			}
+		}
+
+		/**
+		 * Grab the current game word.
+		 * @return String
+		 */
+		function getWord() {
+			return localStorage.getItem('CSE3901_target_word');
+		}
+
+		/**
+		 * Checks if user has won or lost
+		 * @return integer: 1 => win, 0 => loss, 2 => neither 
+		 */
+		function checkWinLoss () {
+			var target_word = getWord();
+			var correct_letters = getLetters(true);
+			var incorrect_letters = getLetters(false);
+
+			if(correct_letters.length == target_word.length){
+				return 1;
+			} else if(incorrect_letters.length => 5) {
+				return 0;
+			} else {
+				return 2;
+			}
+		}
+
+		/**
+		 * Check if the letter is in the word to be guessed
+		 * and if they won/lost neither
+		 * @return boolean
+		 */
+		function handleLetter(letter) {
+			var word = getWord();
+			int i = 0, length = word.length - 1;
+			while(word.indexOf(i, letter) != -1) {
+			   i = word.indexOf(i, letter) + 1;
+			}
+
+			if(i < length) {
+			   	addLetter(false, letter);
+			} else {
+				addLetter(true, letter);
+			}
+
+			var game_status = checkWinLoss();
+
+			if(game_status == 1) {
+				//they won
+			} else if (game_status == 0){
+				//they lost
+			} else {
+				//do nothing keep trying
+			}
+		}
+
+		/**
+		 * This method handles a letter click.
+		 */
+		$('.letter').click(function () {
+			var letter = $(this).data('letter');
+			handleLetter(letter);
+		});
+
 		$('#get').click(function () {
 			$.ajax({
 				type:'GET',
