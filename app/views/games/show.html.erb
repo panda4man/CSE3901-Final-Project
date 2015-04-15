@@ -33,9 +33,9 @@
 		 */
 		function getLetters(bool){
 			if(bool){
-				return JSON.parse(localStorage.getItem('CSE3901_incorrect_words'));
+				return JSON.parse(localStorage.getItem('CSE3901_incorrect_letters'));
 			} else {
-				return JSON.parse(localStorage.getItem('CSE3901_correct_words'));
+				return JSON.parse(localStorage.getItem('CSE3901_correct_letters'));
 			}
 		}
 
@@ -60,7 +60,7 @@
 		 * @return String
 		 */
 		function getWord() {
-			return localStorage.getItem('CSE3901_target_word') || " ";
+			return localStorage.getItem('CSE3901_target_letters') || " ";
 		}
 
 		/**
@@ -119,9 +119,11 @@
 			handleLetter(letter);
 		});
 
-
+		/**
+		 * This method gets the game state.
+		 * @return data
+		 */
 		function get_game(){
-			console.log("is get_game interval working???!??!");
 			$.ajax({
 				type:'GET',
 				url: 'http://localhost:3000/run-game',
