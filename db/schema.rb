@@ -17,6 +17,8 @@ ActiveRecord::Schema.define(version: 20150414013157) do
     t.integer  "first_user_id"
     t.integer  "second_user_id"
     t.string   "name"
+    t.string   "word"
+    t.integer  "level",                default: 1
     t.datetime "start_time"
     t.string   "invitee_email"
     t.integer  "first_user_progress",  default: 0
