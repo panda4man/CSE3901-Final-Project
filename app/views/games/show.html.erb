@@ -22,6 +22,10 @@
 
 <script type="text/javascript">
 	$(document).ready(function () {
+
+		var game_state = setInterval(function() { get_game() }, 500);
+		setTimeout(function() { clearInterval(game_state)}, 3000);
+
 		/**
 		 * Get the correct or incorrect letters
 		 * @param  bool is to toggle between correct/incorrect array
@@ -56,7 +60,7 @@
 		 * @return String
 		 */
 		function getWord() {
-			return localStorage.getItem('CSE3901_target_word');
+			return localStorage.getItem('CSE3901_target_word') || " ";
 		}
 
 		/**
@@ -70,7 +74,7 @@
 
 			if(correct_letters.length == target_word.length){
 				return 1;
-			} else if(incorrect_letters.length => 5) {
+			} else if(incorrect_letters.length >= 5) {
 				return 0;
 			} else {
 				return 2;
@@ -84,12 +88,13 @@
 		 */
 		function handleLetter(letter) {
 			var word = getWord();
-			int i = 0, length = word.length - 1;
+			console.log(word);
+			var i = 0, word_length = word.length - 1;
 			while(word.indexOf(i, letter) != -1) {
 			   i = word.indexOf(i, letter) + 1;
 			}
 
-			if(i < length) {
+			if(i < word_length) {
 			   	addLetter(false, letter);
 			} else {
 				addLetter(true, letter);
@@ -114,7 +119,9 @@
 			handleLetter(letter);
 		});
 
-		$('#get').click(function () {
+
+		function get_game(){
+			console.log("is get_game interval working???!??!");
 			$.ajax({
 				type:'GET',
 				url: 'http://localhost:3000/run-game',
@@ -129,7 +136,9 @@
 					console.log(err);
 				}
 			})
-		});
+		}
+
+
 		$('#post').click(function () {
 			$.ajax({
 				type:'POST',
