@@ -23,9 +23,14 @@ ActiveRecord::Schema.define(version: 20150414013157) do
     t.string   "invitee_email"
     t.integer  "first_user_progress",  default: 0
     t.integer  "second_user_progress", default: 0
+    t.integer  "first_user_points",    default: 500
+    t.integer  "second_user_points",   default: 500
     t.integer  "winner"
-    t.datetime "created_at",                       null: false
-    t.datetime "updated_at",                       null: false
+    t.integer  "loser"
+    t.integer  "player_one_draw"
+    t.integer  "player_two_draw"
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
   end
 
   create_table "leader_boards", force: :cascade do |t|
