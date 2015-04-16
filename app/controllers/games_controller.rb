@@ -50,13 +50,11 @@ class GamesController < ApplicationController
 		game = Game.find_by_id(params[:id])
 		if !game.nil?
 			# Update game params
-			game.first_user_progress = params[:first_user_progress]
-			game.second_user_progress = params[:second_user_progress]
-			game.save
+			# game.save
 			respond_to do |format|
 	  		format.json { render json: game }
 	  		format.html {redirect_to root_path}
-	  	end
+	  		end
 		else
 			respond_to do |format|
 	  		format.json { render json: {:error => true} }
@@ -77,7 +75,7 @@ class GamesController < ApplicationController
 	private
 
 	def game_params
-  	params.require(:game).permit(:name, :first_user_id, :second_user_id, :first_user_progress, :second_user_progress, :word, :level, :winner, :invitee_email)
+  	params.require(:game).permit(:name, :first_user_id, :second_user_id, :game_over, :turn, :word, :level, :winner, :invitee_email)
   end
 
   # Levels go from 1-5

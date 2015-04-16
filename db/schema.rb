@@ -14,23 +14,13 @@
 ActiveRecord::Schema.define(version: 20150414013157) do
 
   create_table "games", force: :cascade do |t|
+    t.integer  "turn"
     t.integer  "first_user_id"
     t.integer  "second_user_id"
-    t.string   "name"
-    t.string   "word"
-    t.integer  "level",                default: 1
-    t.datetime "start_time"
-    t.string   "invitee_email"
-    t.integer  "first_user_progress",  default: 0
-    t.integer  "second_user_progress", default: 0
-    t.integer  "first_user_points",    default: 500
-    t.integer  "second_user_points",   default: 500
     t.integer  "winner"
-    t.integer  "loser"
-    t.integer  "player_one_draw"
-    t.integer  "player_two_draw"
-    t.datetime "created_at",                         null: false
-    t.datetime "updated_at",                         null: false
+    t.boolean  "game_over",      default: false
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
   end
 
   create_table "leader_boards", force: :cascade do |t|
@@ -52,6 +42,8 @@ ActiveRecord::Schema.define(version: 20150414013157) do
     t.string   "salt"
     t.string   "email"
     t.string   "username"
+    t.integer  "wins"
+    t.integer  "losses"
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
   end
