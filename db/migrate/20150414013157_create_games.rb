@@ -12,6 +12,8 @@ class CreateGames < ActiveRecord::Migration
     	t.integer			:second_user_progress, default: 0
       t.integer     :first_user_points, default: 500
       t.integer     :second_user_points, default: 500
+      t.boolen      :first_user_done, default: false
+      t.boolen      :second_user_done, default: false
     	t.integer			:winner, default: nil
       t.integer     :loser, default: nil
       t.integer     :player_one_draw, default: nil
