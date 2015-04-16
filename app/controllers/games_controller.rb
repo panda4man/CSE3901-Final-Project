@@ -16,7 +16,9 @@ class GamesController < ApplicationController
 				@game.first_user_id = @current_user.id
 				# Set the second id to the invited users id
 				@game.second_user_id = @to.id
-
+				# Set the word to the random word according to level
+				@game.word = random_word(@game.level)
+				
 				# Save the game object
 				if @game.save
 					GameMailer.game_invite(@current_user, @to, @game).deliver_later
@@ -79,25 +81,38 @@ class GamesController < ApplicationController
   # Levels go from 1-5
   # 1 being the easiest and five being the hardest.
   def random_word(level)
+	# initialize constant arrays
   	level_one = Array.new
   	level_two = Array.new
   	level_three = Array.new
   	level_four = Array.new
   	level_five = Array.new
+	level_one = ["word", "find", "true", "read", "like", "note", "data", "ruby", "code", "show"]
+	level_two = ["trees", "dizzy", "movie", "image", "media", "store", "phone", "false", "glare", "stone"]
+  	level_three = ["letter", "random", "english", "chrome", "device", "assign", "design", "search", "encode", "several"]
+  	level_four = ["plebian", "picture", "science", "execute", "message", "missing", "storage", "project", "history", "setting"]
+  	level_five = ["atrophy", "tutorial", "computer", "generate", "internet", "bookmark", "register", "download", "language", "important"]
 
-  	case level
-  	when 1
-  		puts "one"
-  	when 2 
-  		puts "two"
-  	when 3
-  		puts "three"
-  	when 4
-  		puts "four"
-  	when 5
-  		puts "give"
-  	else
-  		puts "error?"
+	# get random integer 0-9
+	prng = Random.new
+	rand = prng.rand(10)
+	
+	# return word in array accordingly
+  	case level	
+		when 1
+			return level_one[rand]
+		when 2
+			return level_two[rand]
+		when 3
+			return level_three[rand]
+		when 4
+			return level_four[rand]
+		when 5
+			return level_five[rand]
+		else
+			puts "Error input."
+			return "Error"
   	end
-  end
+	
+	end
 end
