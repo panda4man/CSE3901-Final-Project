@@ -48,6 +48,7 @@ class GamesController < ApplicationController
 	def update_game
 		game = Game.find_by_id(params[:id])
 		if !game.nil?
+			# Update game params
 			game.first_user_progress = params[:first_user_progress]
 			game.second_user_progress = params[:second_user_progress]
 			game.save
