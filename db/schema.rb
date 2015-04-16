@@ -14,11 +14,16 @@
 ActiveRecord::Schema.define(version: 20150414013157) do
 
   create_table "games", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "level"
+    t.string   "invitee_email"
+    t.string   "word"
     t.integer  "turn"
     t.integer  "first_user_id"
     t.integer  "second_user_id"
     t.integer  "winner"
     t.boolean  "game_over",      default: false
+    t.boolean  "stop",           default: false
     t.datetime "created_at",                     null: false
     t.datetime "updated_at",                     null: false
   end

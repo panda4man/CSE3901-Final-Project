@@ -6,7 +6,8 @@ class CreateGames < ActiveRecord::Migration
 			t.string		:name
 			t.integer		:level
 			t.string		:invitee_email
-			t.integer      	:turn 
+			t.string		:word
+			t.integer      	:turn
 			t.integer     	:first_user_id
 			t.integer		:second_user_id
 			t.integer		:winner
