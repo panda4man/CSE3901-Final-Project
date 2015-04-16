@@ -105,15 +105,19 @@
 		function handleLetter(letter) {
 			var word = getWord();
 			console.log(word);
-			var i = 0, word_length = word.length - 1;
-			while(word.indexOf(i, letter) != -1) {
-			   i = word.indexOf(i, letter) + 1;
+			var count = 0;
+			for(var i = 0; i < word.length; i++){
+				if(word[i] == letter){
+					count++;
+				}
 			}
 
-			if(i < word_length) {
+			if(count == 0) {
 			   	addLetter(false, letter);
 			} else {
-				addLetter(true, letter);
+				for(var i = 0; i < count; i++){
+					addLetter(true, letter);
+				}
 			}
 
 			var game_status = checkWinLoss();
