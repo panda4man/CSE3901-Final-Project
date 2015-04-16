@@ -1,4 +1,5 @@
 class GamesController < ApplicationController
+	layout "game"
 	def new
 		@game = Game.new
 	end
