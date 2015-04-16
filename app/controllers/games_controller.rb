@@ -81,23 +81,18 @@ class GamesController < ApplicationController
   # Levels go from 1-5
   # 1 being the easiest and five being the hardest.
   def random_word(level)
-	# initialize constant arrays
-  	level_one = Array.new
-  	level_two = Array.new
-  	level_three = Array.new
-  	level_four = Array.new
-  	level_five = Array.new
-	level_one = ["word", "find", "true", "read", "like", "note", "data", "ruby", "code", "show"]
-	level_two = ["trees", "dizzy", "movie", "image", "media", "store", "phone", "false", "glare", "stone"]
-  	level_three = ["letter", "random", "english", "chrome", "device", "assign", "design", "search", "encode", "several"]
-  	level_four = ["plebian", "picture", "science", "execute", "message", "missing", "storage", "project", "history", "setting"]
-  	level_five = ["atrophy", "tutorial", "computer", "generate", "internet", "bookmark", "register", "download", "language", "important"]
+		# initialize constant arrays
+		level_one = ["word", "find", "true", "read", "like", "note", "data", "ruby", "code", "show"]
+		level_two = ["trees", "dizzy", "movie", "image", "media", "store", "phone", "false", "glare", "stone"]
+		level_three = ["letter", "random", "english", "chrome", "device", "assign", "design", "search", "encode", "several"]
+		level_four = ["plebian", "picture", "science", "execute", "message", "missing", "storage", "project", "history", "setting"]
+		level_five = ["atrophy", "tutorial", "computer", "generate", "internet", "bookmark", "register", "download", "language", "important"]
 
-	# get random integer 0-9
-	prng = Random.new
-	rand = prng.rand(10)
+		# get random integer 0-9
+		prng = Random.new
+		rand = prng.rand(10)
 	
-	# return word in array accordingly
+		# return word in array accordingly
   	case level	
 		when 1
 			return level_one[rand]
