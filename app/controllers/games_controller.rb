@@ -1,5 +1,4 @@
 class GamesController < ApplicationController
-	layout "game"
 	def new
 		@game = Game.new
 	end
@@ -23,7 +22,7 @@ class GamesController < ApplicationController
 				# Save the game object
 				if @game.save
 					GameMailer.game_invite(@current_user, @to, @game).deliver_later
-					redirect_to @game, :flash => {:notice => "Invite successfully sent."}
+					redirect_to @game, layout: "game", :flash => {:notice => "Invite successfully sent."}
 				else
 					flash.alert = "Unable to save game."
 					render :new
@@ -43,6 +42,7 @@ class GamesController < ApplicationController
 		if @game.nil?
       redirect_to action: 'new', :flash => {:notice => "Error loading game."}
     end
+    render layout: "game"
 	end
 
 	# This method handles posts to update the current game state
