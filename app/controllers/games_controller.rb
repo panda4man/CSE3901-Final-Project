@@ -28,7 +28,7 @@ class GamesController < ApplicationController
 					render :new
 				end
 			else
-				flash.alert = "Unable to save game."
+				flash.alert = "Unable to send email to user. Does not exist"
 				render :new
 			end
 		else
