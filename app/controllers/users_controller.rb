@@ -29,6 +29,7 @@ class UsersController < ApplicationController
     if @user.nil?
       redirect_to action: 'index', :flash => {:notice => "Error showing user"}
     end
+
   end
 
   private
