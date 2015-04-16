@@ -1,5 +1,12 @@
+<div class="row" style="height: 100%; width: 100%;">
+	<div class="col s12 center-align">
+		<div>
+			<%= image_tag 'ol_hangman_logo', :style => 'vertical-align: middle;' %>
+		</div>
+	</div>
+</div>
 <div class="row">
-	<div class="col s6 offset-s3">
+	<div class="col s6 offset-s3 black-glass">
 		<%= form_tag do %>
 			<div>
 			<%= label_tag :email, "email" %>
@@ -8,10 +15,9 @@
 			<%= password_field_tag :password, "Password" %>
 			</div>
 			<div>
-			<%= submit_tag "Login", :class => 'btn waves-effect' %>
+			<%= submit_tag "Login", :class => 'btn waves-effect' %> &nbsp <%= link_to "Register", new_user_path, :class => "btn waves-effect" %>
 			</div>
 		<% end %>
-		<br>
-		<%= link_to "Register", new_user_path, :class => "btn waves-effect" %>
+		
 	</div>
 </div>

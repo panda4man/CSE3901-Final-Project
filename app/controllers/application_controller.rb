@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
 
   def require_login
     unless current_user
-      redirect_to login_path, :flash => {alert: "You need to login"}
+      redirect_to login_path , :flash => {alert: "You need to login"}
     end
   end
 end
