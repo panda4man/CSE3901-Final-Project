@@ -62,7 +62,7 @@
 <script type="text/javascript">
 	$(document).ready(function () {
 
-		var game_state = setInterval(function() { get_game() }, 500);
+		var game_state = setInterval(function() { get_game() }, 30000);
 		setTimeout(function() { clearInterval(game_state)}, 3000);
 
 		/**
@@ -186,7 +186,7 @@
 				dataType: 'JSON',
 				success: function (data){
 					console.log(data);
-					return data;
+					setGameStorage(data);
 				},
 				error: function (err) {
 					console.log(err);
@@ -199,25 +199,30 @@
 			var correct_letters = getLetters(true);
 			var incorrect_letters = getLetters(false);
 			if (game.first_user_id == <%= @current_user.id %>) {
-				//Current user is the first user
-				game.first_user_progress = incorrect_letters.length;
-				game.first_user_points = 500-(100*incorrect_letters.length);
 				//check if they just won or lost
-				if(game_status == 1 || game_status == 2){
-					game.first_user_done = true;
+				if(game_status == 1){
+					game.game_over = true;
+					game.winner = <%= @current_user.id %>;
+					setGameStorage(post(game));
+				} else if(game_status == 0) {
+					game.game_over = true;
+					game.winner = game.second_user_id;
+					setGameStorage(post(game));
+				} else {
+					setGameStorage(post(game));
 				}
-				//get back the game state
-				setGameStorage(post(game));
 			} else {
-				//Current user is the second user
-				game.second_user_progress = incorrect_letters.length;
-				game.second_user_points = 500-(100*incorrect_letters.length);
-				//check if they just won or lost
-				if(game_status == 1 || game_status == 2){
-					game.second_user_done = true;
+				if(game_status == 1){
+					game.game_over = true;
+					game.winner = <%= @current_user.id %>;
+					setGameStorage(post(game));
+				} else if(game_status == 0) {
+					game.game_over = true;
+					game.winner = <%= @current_user.id %>;
+					setGameStorage(post(game));
+				} else {
+					setGameStorage(post(game));
 				}
-				//get back the game state
-				setGameStorage(post(game));
 			}
 		}
 
