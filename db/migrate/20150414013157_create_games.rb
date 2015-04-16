@@ -5,9 +5,10 @@ class CreateGames < ActiveRecord::Migration
 		create_table :games do |t|
 			t.integer      	:turn 
 			t.integer     	:first_user_id
-			t.integer				:second_user_id
-			t.integer				:winner
-			t.boolean				:game_over, 	default: false
+			t.integer		:second_user_id
+			t.integer		:winner
+			t.boolean		:game_over, default: false
+			t.boolean		:stop, default: false
 			t.timestamps null: false
 		end
 	end

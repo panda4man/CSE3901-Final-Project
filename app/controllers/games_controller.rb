@@ -46,20 +46,56 @@ class GamesController < ApplicationController
 	end
 
 	# This method handles posts to update the current game state
+
+	### TO DO - If game is over pull winning user and update user's wins #####
 	def update_game
 		game = Game.find_by_id(params[:id])
-		if !game.nil?
-			# Update game params
-			# game.save
-			respond_to do |format|
-	  		format.json { render json: game }
-	  		format.html {redirect_to root_path}
-	  		end
+		turn = params[:turn]
+
+		if !game.nil? && !game.stop?
+			if !game.game_over?
+				# Update game params
+				if turn == 0
+					turn = 1
+				else
+					turn = 0
+				end
+				game.turn = turn
+				game.save
+				respond_to do |format|
+		  			format.json { render json: game }
+		  			format.html {redirect_to root_path}
+		  		end
+		  	else
+		  		#when game is over
+		  		game.stop = true;
+		  		game.save
+		  		#update winners wins by 1
+		  		winner = User.find_by_id(params[:winner])
+		  		winner.wins = winner.wins + 1
+		  		winner.save
+
+		  		#get losers id and update losses by 1
+		  		if winner.id == params[:first_user_id]
+		  			loser = User.find_by_id(params[:second_user_id])
+		  			loser.losses = loser.losses + 1
+		  			loser.save
+		  		else
+		  			loser = User.find_by_id(params[:first_user_id])
+		  			loser.losses = loser.losses + 1
+		  			loser.save
+		  		end
+		  		respond_to do |format|
+		  			format.json { render json: game }
+		  			format.html {redirect_to root_path}
+		  		end
+		  	end
+
 		else
 			respond_to do |format|
-	  		format.json { render json: {:error => true} }
-	  		format.html {redirect_to root_path}
-	  	end
+		  		format.json { render json: {:error => true} }
+		  		format.html {redirect_to root_path}
+		  	end
 		end
   end
 
