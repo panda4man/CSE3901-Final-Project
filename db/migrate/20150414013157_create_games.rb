@@ -3,6 +3,9 @@
 class CreateGames < ActiveRecord::Migration
 	def change
 		create_table :games do |t|
+			t.string		:name
+			t.integer		:level
+			t.string		:invitee_email
 			t.integer      	:turn 
 			t.integer     	:first_user_id
 			t.integer		:second_user_id
