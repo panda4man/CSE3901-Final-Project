@@ -33,10 +33,26 @@
 		 */
 		function getLetters(bool){
 			if(bool){
-				return JSON.parse(localStorage.getItem('CSE3901_incorrect_letters'));
+				return JSON.parse(localStorage.getItem('CSE3901_incorrect_letters') || "[]");
 			} else {
-				return JSON.parse(localStorage.getItem('CSE3901_correct_letters'));
+				return JSON.parse(localStorage.getItem('CSE3901_correct_letters') || "[]");
 			}
+		}
+
+		/**
+		 * Set the game state in storage
+		 * @param JSON game object
+		 */
+		function setGameStorage (game) {
+			localStorage.setItem('CSE3901_game', JSON.stringify(game));
+		}
+
+		/**
+		 * Get the game object
+		 * @return JSON game object
+		 */
+		function getGameStorage (){
+			return JSON.parse(localStorage.getItem('CSE3901_game')) || {};
 		}
 
 		/**
@@ -106,13 +122,7 @@
 
 			var game_status = checkWinLoss();
 
-			if(game_status == 1) {
-				//they won
-			} else if (game_status == 0){
-				//they lost
-			} else {
-				//do nothing keep trying
-			}
+			send_data(game_status);
 		}
 
 		/**
@@ -144,24 +154,47 @@
 			})
 		}
 
+		function send_data (game_status) {
+			var game = getGameStorage();
+			var correct_letters = getLetters(true);
+			var incorrect_letters = getLetters(false);
+			if (game.first_user_id == <%= @current_user.id %>) {
+				//Current user is the first user
+				game.first_user_progress = incorrect_letters.length;
+				game.first_user_points = 500-(100*incorrect_letters.length);
+				//check if they just won or lost
+				if(game_status == 1 || game_status == 2){
+					game.first_user_done = true;
+				}
+				//get back the game state
+				setGameStorage(post(game));
+			} else {
+				//Current user is the second user
+				game.second_user_progress = incorrect_letters.length;
+				game.second_user_points = 500-(100*incorrect_letters.length);
+				//check if they just won or lost
+				if(game_status == 1 || game_status == 2){
+					game.second_user_done = true;
+				}
+				//get back the game state
+				setGameStorage(post(game));
+			}
+		}
 
-		$('#post').click(function () {
+		function post (data) {
 			$.ajax({
 				type:'POST',
 				url: 'http://localhost:3000/run-game',
-				data: {
-					id: <%= @game.id %>,
-					first_user_progress: 3,
-					second_user_progress: 4
-				},
+				data: data,
 				dataType: 'JSON',
 				success: function (data){
 					console.log(data);
+					return data;
 				},
 				error: function (err) {
 					console.log(err);
 				}
-			})
-		});
+			});
+		}
 	});
 </script>
