@@ -7,7 +7,7 @@ class LandingController < ApplicationController
     	if not current_user
       		redirect_to login_path
     	else
-      		redirect_to users_path
+      		redirect_to current_user
     	end
   
 	end
