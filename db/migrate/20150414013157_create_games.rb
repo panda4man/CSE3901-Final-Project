@@ -7,7 +7,7 @@ class CreateGames < ActiveRecord::Migration
 			t.integer		:level
 			t.string		:invitee_email
 			t.string		:word
-			t.integer      	:turn
+			t.integer      	:turn, default: 0
 			t.integer     	:first_user_id
 			t.integer		:second_user_id
 			t.integer		:winner
