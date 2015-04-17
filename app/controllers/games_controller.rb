@@ -40,9 +40,10 @@ class GamesController < ApplicationController
 	def show
 		@game = Game.find_by_id(params[:id])
 		if @game.nil?
-      redirect_to action: 'new', :flash => {:notice => "Error loading game."}
+      redirect_to users_path, :flash => {:notice => "Error loading game."}
+    else
+    	render layout: "game"
     end
-    render layout: "game"
 	end
 
 	# This method handles posts to update the current game state
@@ -50,40 +51,47 @@ class GamesController < ApplicationController
 	### TO DO - If game is over pull winning user and update user's wins #####
 	def update_game
 		game = Game.find_by_id(params[:id])
-		turn = params[:turn]
+		turn = params[:turn].to_i
+		game_over = params[:game_over].to_s == "false" ? false : true 
 
 		if !game.nil? && !game.stop?
-			if !game.game_over?
+			if !game_over
 				# Update game params
-				if turn == 0
+				if turn.eql?(0)
 					turn = 1
 				else
 					turn = 0
 				end
-				game.turn = turn
-				game.save
-				respond_to do |format|
-		  		format.json { render json: game }
-		  		format.html {redirect_to root_path}
-		  	end
+				if game.update_attribute(:turn, turn)
+					respond_to do |format|
+		  			format.json { render json: game}
+		  			format.html {redirect_to root_path}
+		  		end
+				else
+					respond_to do |format|
+		  			format.json { render json: {:error => true} }
+		  			format.html {redirect_to root_path}
+		  		end
+				end
 	  	else
 	  		#when game is over
-	  		game.stop = true;
-	  		game.save
+	  		game.update_attribute(:game_over, true)
+	  		game.update_attribute(:stop, true)
+	  		game.update_attribute(:winner, params[:winner].to_i)
 	  		#update winners wins by 1
 	  		winner = User.find_by_id(params[:winner])
-	  		winner.wins = winner.wins + 1
-	  		winner.save
+	  		wins = winner.wins.nil? ? 0 : winner.wins
+	  		winner.update_attribute(:wins, wins + 1)
 
 	  		#get losers id and update losses by 1
-	  		if winner.id == params[:first_user_id]
+	  		if winner.id == params[:first_user_id].to_i
 	  			loser = User.find_by_id(params[:second_user_id])
-	  			loser.losses = loser.losses + 1
-	  			loser.save
+	  			losses = loser.losses.nil? ? 0 : loser.losses
+	  			loser.update_attribute(:losses, losses + 1)
 	  		else
 	  			loser = User.find_by_id(params[:first_user_id])
-	  			loser.losses = loser.losses + 1
-	  			loser.save
+	  			losses = loser.losses.nil? ? 0 : loser.losses
+	  			loser.update_attribute(:losses, losses + 1)
 	  		end
 	  		respond_to do |format|
 	  			format.json { render json: game }
@@ -92,9 +100,9 @@ class GamesController < ApplicationController
 		  end
 		else
 			respond_to do |format|
-		  		format.json { render json: {:error => true} }
-		  		format.html {redirect_to root_path}
-		  	end
+		  	format.json { render json: {:error => true} }
+		  	format.html {redirect_to root_path}
+		  end
 		end
   end
 
