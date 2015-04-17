@@ -1,67 +1,87 @@
 <div class="row">
-	<div class="col s6 offset-s3">
+	<div class="col s6 offset-s3 center">
 		<h3><%= @game.name %></h3>
 	</div> 
 </div>
-<div class="row">
+<div class="row board-upper">
+
+	<!-- player 1 -->
+	<div class="col s2 offset-s2 gallow">
+		<%= image_tag 'hangman/hangmanL', :class => 'responsive-img',:style => 'vertical-align: middle;' %>
+	</div>
+	<!-- Center -->
 	<div class="col s4">
-		<div class="row">
+
+		<!-- Test Button -->
+		<div class="row center">
 			<div class="col s12">
 			<button id="test-turn" data-letter="a" class="btn">Test Turn</button>
 			</div>
 		</div>
+
+		<!-- Letters -->
+		<div class="row center">
+			<div class="col s12">
+				<div class="letter" data-letter="a"><p>A</p></div>
+				<div class="letter" data-letter="b"><p>B</p></div>
+				<div class="letter" data-letter="c"><p>C</p></div>
+				<div class="letter" data-letter="d"><p>D</p></div>
+				<div class="letter" data-letter="e"><p>E</p></div>
+				<div class="letter" data-letter="f"><p>F</p></div>
+				<div class="letter" data-letter="g"><p>G</p></div>
+			</div>
+		</div>
+		<div class="row short center">
+			<div class="col s12">
+				<div class="letter" data-letter="h"><p>H</p></div>
+				<div class="letter" data-letter="i"><p>I</p></div>
+				<div class="letter" data-letter="j"><p>J</p></div>
+				<div class="letter" data-letter="k"><p>K</p></div>
+				<div class="letter" data-letter="l"><p>L</p></div>
+				<div class="letter" data-letter="m"><p>M</p></div>
+			</div>
+		</div>
 		<div class="row">
+			<div class="col s12 center">
+				<div class="letter" data-letter="n"><p>N</p></div>
+				<div class="letter" data-letter="o"><p>O</p></div>
+				<div class="letter" data-letter="p"><p>P</p></div>
+				<div class="letter" data-letter="q"><p>Q</p></div>
+				<div class="letter" data-letter="r"><p>R</p></div>
+				<div class="letter" data-letter="s"><p>S</p></div>
+				<div class="letter" data-letter="t"><p>T</p></div>
+			</div>
+		</div>
+		<div class="row short center">
 			<div class="col s12">
-				<div class="letter" data-letter="a">A</div>
-				<div class="letter" data-letter="b">B</div>
-				<div class="letter" data-letter="c">C</div>
-				<div class="letter" data-letter="d">D</div>
-				<div class="letter" data-letter="e">E</div>
-				<div class="letter" data-letter="f">F</div>
-				<div class="letter" data-letter="g">G</div>
+				<div class="letter" data-letter="u"><p>U</p></div>
+				<div class="letter" data-letter="v"><p>V</p></div>
+				<div class="letter" data-letter="w"><p>W</p></div>
+				<div class="letter" data-letter="x"><p>X</p></div>
+				<div class="letter" data-letter="y"><p>Y</p></div>
+				<div class="letter" data-letter="z"><p>Z</p></div>
 			</div>
 		</div>
 
-		<div class="row short">
-			<div class="col s12">
-				<div class="letter" data-letter="h">H</div>
-				<div class="letter" data-letter="i">I</div>
-				<div class="letter" data-letter="j">J</div>
-				<div class="letter" data-letter="k">K</div>
-				<div class="letter" data-letter="l">L</div>
-				<div class="letter" data-letter="m">M</div>
-			</div>
-		</div>
+		<!-- Word -->
+		
 
+
+	</div>
+
+	<!-- player 2 -->
+	<div class="col s2 gallow">
+		<%= image_tag 'hangman/hangman', :class => 'responsive-img',:style => 'vertical-align: middle;' %>
+	</div>
+
+</div>
+<div class="row board-lower board-lower">
+	<div class="col s4 offset-s4 center gallow">
 		<div class="row">
-			<div class="col s12">
-				<div class="letter" data-letter="n">N</div>
-				<div class="letter" data-letter="o">O</div>
-				<div class="letter" data-letter="p">P</div>
-				<div class="letter" data-letter="q">Q</div>
-				<div class="letter" data-letter="r">R</div>
-				<div class="letter" data-letter="s">S</div>
-				<div class="letter" data-letter="t">T</div>
-			</div>
+			<h4 class="white-text">Word to Solve</h4>
 		</div>
+	</div>
 
-		<div class="row short">
-			<div class="col s12">
-				<div class="letter" data-letter="u">U</div>
-				<div class="letter" data-letter="v">V</div>
-				<div class="letter" data-letter="w">W</div>
-				<div class="letter" data-letter="x">X</div>
-				<div class="letter" data-letter="y">Y</div>
-				<div class="letter" data-letter="z">Z</div>
-			</div>
-		</div>
-	</div>
-	<div class="col s4">
-	hangman board for p1
-	</div>
-	<div class="col s4">
-	p2 board
-	</div>
 </div>
 
 

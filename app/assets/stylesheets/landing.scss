@@ -6,6 +6,7 @@ body{
 	background-image: image-url("tree.jpg");
 	background-size: cover;
     background-repeat: no-repeat;
+    background-attachment: fixed;
 }
 
 .black-glass{
@@ -18,3 +19,5 @@ body{
 .yText{
 	color: yellow;
 }
+
+

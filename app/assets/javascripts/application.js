@@ -15,6 +15,10 @@
 //= require turbolinks
 //= require_tree .
 //
+
+ /*
+ 	Fixes issue with dropdown menu for top navigation
+  */
  $(document).ready(function(){
  	$(document).hover(function(){
  		$('.dropdown-button').dropdown();

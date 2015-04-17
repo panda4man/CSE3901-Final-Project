@@ -7,9 +7,12 @@
 	display: inline-block;
 	-moz-appearance:button;
 	-webkit-appearance:button;
-	width: 22px;
-	height: 22px;
+	min-width: 35px;
+	max-height: 35px;
+	//width: 22px;
+	//height: 22px;
 	text-align: center;
+	font-size: 14px;
 }
 
 .short {
@@ -19,4 +22,18 @@
 h3 {
 	color: white;
 	text-align: center;
+}
+
+board-upper{
+
+}
+
+board-lower{
+	max-height: 100px;
+}
+
+.gallow{
+	border: 5px solid grey;
+	background-color: rgba(20,20,20,0.35);  
+	padding: 40px !important; 
 }
