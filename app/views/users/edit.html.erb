@@ -1,5 +1,40 @@
 <div class="row black-glass">
-	<div class="col s6 offset-s6">
-		<!-- JESS ADD FORM HERE -->
+	<div class="col s3 center">
+		<%= image_tag 'avatars/av01', :class => 'circle responsive-img' %>
+		<p><b><%= @user.username %></b></p>
 	</div>
+	<div class="col s6">
+	<h2>Edit Profile</h2>
+		<%= form_for @user, url: {action: 'create'} do |f| %>
+			<%= f.text_field :first_name, :placeholder => "First Name" %>
+			<% if @user.errors.full_messages_for(:first_name).first %>
+				<div class="card card-panel red red-lighten-1">
+					<% @user.errors.full_messages_for(:first_name).each do |error| %>
+						<%= error %><br>
+					<% end %>
+				</div>
+			<% end %>
+			<%= f.text_field :last_name, :placeholder => "Last Name" %>
+			<% if @user.errors.full_messages_for(:last_name).first %>
+				<div class="card card-panel red red-lighten-1">
+					<% @user.errors.full_messages_for(:last_name).each do |error| %>
+						<%= error %><br>
+					<% end %>
+				</div>
+			<% end %>
+			<%= f.text_field :email, :placeholder => "Email" %>
+			<% if @user.errors.full_messages_for(:email).first %>
+				<div class="card card-panel red red-lighten-1">
+					<% @user.errors.full_messages_for(:email).each do |error| %>
+						<%= error %><br>
+					<% end %>
+				</div>
+			<% end %>
+			<!-- Temporarily removed Username entry, copy from new.html.erb -->
+			<!-- Temporarily removed Password entry, copy from new.html.erb -->
+			<%= f.submit "Save Changes", :class => "btn waves-effect" %>
+			<%= link_to "Cancel", user_path, :class => "btn waves-effect" %>
+		<% end %>
+	</div>
+	
 </div>
