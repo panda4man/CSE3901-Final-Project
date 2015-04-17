@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   skip_before_filter :require_login, :only => [:create, :new]
+  before_filter :skip_password_attribute, :only => :update
   def index
     @users = User.all
   end
@@ -50,5 +51,11 @@ class UsersController < ApplicationController
 
   def user_params
   	params.require(:user).permit(:email, :password, :first_name, :last_name, :username)
+  end
+
+  def skip_password_attribute
+    if params[:password].blank?
+      params.except!(:password)
+    end
   end
 end

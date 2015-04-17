@@ -38,6 +38,14 @@
 					<% end %>
 				</div>
 			<% end %>
+			<%= f.password_field :password, :placeholder => "Password" %>
+			<% if @user.errors.full_messages_for(:password).first %>
+				<div class="card card-panel red red-lighten-1">
+					<% @user.errors.full_messages_for(:password).each do |error| %>
+						<%= error %><br>
+					<% end %>
+				</div>
+			<% end %>
 			<%= f.submit "Save Changes", :class => "btn waves-effect" %>
 			<%= link_to "Cancel", @user, :class => "btn waves-effect" %>
 		<% end %>

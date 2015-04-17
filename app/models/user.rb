@@ -13,8 +13,7 @@ class User < ActiveRecord::Base
 						:uniqueness											=> {:case_sensitive => false}
 	validates	:username,				:presence			=> true
 	validates :password,				:presence			=> true,
-						:length													=> {:within => 6..40},
-						:if 														=> :password
+						:length													=> {:within => 6..40}
 
 	before_save :encrypt_password
 
