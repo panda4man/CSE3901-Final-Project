@@ -61,9 +61,9 @@
 
 <script type="text/javascript">
 	$(document).ready(function () {
-
+		//As soon as the page starts
+		//begin grabbing the game state every 30 seconds
 		var game_state = setInterval(function() { get_game() }, 30000);
-		setTimeout(function() { clearInterval(game_state)}, 3000);
 
 		/**
 		 * Get the correct or incorrect letters
@@ -187,6 +187,15 @@
 				success: function (data){
 					console.log(data);
 					setGameStorage(data);
+					//if current user is first user and it is their turn
+					if(<%= current_user.id %> == data.first_user_id && data.turn == 0){
+						//unlock the board
+					} else if(<%= current_user.id %> == data.second_user_id && data.turn == 1) {
+						//if current user is second user and it is their turn
+						//unlock the board
+					} else if (data.game_over) {
+						stopGame();
+					}
 				},
 				error: function (err) {
 					console.log(err);
@@ -204,33 +213,42 @@
 			var correct_letters = getLetters(true);
 			var incorrect_letters = getLetters(false);
 			if (game.first_user_id == <%= @current_user.id %>) {
-				//check if they just won or lost
+				//check if the first user just won or lost
 				if(game_status == 1){
 					game.game_over = true;
 					game.winner = <%= @current_user.id %>;
 					setGameStorage(post(game));
+					stopGame();
 				} else if(game_status == 0) {
 					game.game_over = true;
 					game.winner = game.second_user_id;
 					setGameStorage(post(game));
+					stopGame();
 				} else {
 					setGameStorage(post(game));
 				}
 			} else {
+				//check if hte second user just won or lost
 				if(game_status == 1){
 					game.game_over = true;
 					game.winner = <%= @current_user.id %>;
 					setGameStorage(post(game));
+					stopGame();
 				} else if(game_status == 0) {
 					game.game_over = true;
 					game.winner = <%= @current_user.id %>;
 					setGameStorage(post(game));
+					stopGame();
 				} else {
 					setGameStorage(post(game));
 				}
 			}
 		}
 
+		/**
+		 * This method sends a post back to the server.
+		 * @param  the game object
+		 */
 		function post (data) {
 			$.ajax({
 				type:'POST',
@@ -245,6 +263,14 @@
 					console.log(err);
 				}
 			});
+		}
+
+		/**
+		 * This method stops the update game method
+		 */
+		function stopGame () {
+			clearInterval(game_state);
+			//display game over message
 		}
 	});
 </script>
