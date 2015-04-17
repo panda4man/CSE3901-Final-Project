@@ -63,34 +63,33 @@ class GamesController < ApplicationController
 				game.turn = turn
 				game.save
 				respond_to do |format|
-		  			format.json { render json: game }
-		  			format.html {redirect_to root_path}
-		  		end
-		  	else
-		  		#when game is over
-		  		game.stop = true;
-		  		game.save
-		  		#update winners wins by 1
-		  		winner = User.find_by_id(params[:winner])
-		  		winner.wins = winner.wins + 1
-		  		winner.save
-
-		  		#get losers id and update losses by 1
-		  		if winner.id == params[:first_user_id]
-		  			loser = User.find_by_id(params[:second_user_id])
-		  			loser.losses = loser.losses + 1
-		  			loser.save
-		  		else
-		  			loser = User.find_by_id(params[:first_user_id])
-		  			loser.losses = loser.losses + 1
-		  			loser.save
-		  		end
-		  		respond_to do |format|
-		  			format.json { render json: game }
-		  			format.html {redirect_to root_path}
-		  		end
+		  		format.json { render json: game }
+		  		format.html {redirect_to root_path}
 		  	end
+	  	else
+	  		#when game is over
+	  		game.stop = true;
+	  		game.save
+	  		#update winners wins by 1
+	  		winner = User.find_by_id(params[:winner])
+	  		winner.wins = winner.wins + 1
+	  		winner.save
 
+	  		#get losers id and update losses by 1
+	  		if winner.id == params[:first_user_id]
+	  			loser = User.find_by_id(params[:second_user_id])
+	  			loser.losses = loser.losses + 1
+	  			loser.save
+	  		else
+	  			loser = User.find_by_id(params[:first_user_id])
+	  			loser.losses = loser.losses + 1
+	  			loser.save
+	  		end
+	  		respond_to do |format|
+	  			format.json { render json: game }
+	  			format.html {redirect_to root_path}
+	  		end
+		  end
 		else
 			respond_to do |format|
 		  		format.json { render json: {:error => true} }
@@ -141,9 +140,7 @@ class GamesController < ApplicationController
 		when 5
 			return level_five[rand]
 		else
-			puts "Error input."
-			return "Error"
+			return false
   	end
-	
 	end
 end
