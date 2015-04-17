@@ -75,9 +75,7 @@ class GamesController < ApplicationController
 				end
 	  	else
 	  		#when game is over
-	  		game.update_attribute(:game_over, true)
-	  		game.update_attribute(:stop, true)
-	  		game.update_attribute(:winner, params[:winner].to_i)
+	  		game.update_attributes(game_over: => true, stop: => true, winner: params[:winner].to_i)
 	  		#update winners wins by 1
 	  		winner = User.find_by_id(params[:winner])
 	  		wins = winner.wins.nil? ? 0 : winner.wins
