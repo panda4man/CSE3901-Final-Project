@@ -10,6 +10,8 @@ class CreateGames < ActiveRecord::Migration
 			t.integer      	:turn, default: 0
 			t.integer     	:first_user_id
 			t.integer		:second_user_id
+			t.integer		:first_user_misses, default: 0
+			t.integer		:second_user_misses, default: 0
 			t.integer		:winner
 			t.boolean		:game_over, default: false
 			t.boolean		:stop, default: false

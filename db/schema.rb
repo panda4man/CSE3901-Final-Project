@@ -18,14 +18,16 @@ ActiveRecord::Schema.define(version: 20150414013157) do
     t.integer  "level"
     t.string   "invitee_email"
     t.string   "word"
-    t.integer  "turn",           default: 0
+    t.integer  "turn",               default: 0
     t.integer  "first_user_id"
     t.integer  "second_user_id"
+    t.integer  "first_user_misses",  default: 0
+    t.integer  "second_user_misses", default: 0
     t.integer  "winner"
-    t.boolean  "game_over",      default: false
-    t.boolean  "stop",           default: false
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
+    t.boolean  "game_over",          default: false
+    t.boolean  "stop",               default: false
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
   end
 
   create_table "leader_boards", force: :cascade do |t|
