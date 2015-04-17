@@ -2,11 +2,20 @@
 	<div class="col s12">
 		<table class="responsive-table centered" style="background-color: rgba(20,20,20,0.8); padding: 20px; color:white;">
 			<thead>
-				<th>User</th>
+				<th>Name</th>
 				<th>Wins</th>
 				<th>Losses</th>
+				<th></th>
 			</thead>
 			<tbody>
+				<% @users.each do |user| %>
+					<tr>
+						<td><%= user.first_name %>&nbsp;<%= user.last_name %></td>
+						<td><%= user.wins.nil? ? 0 : user.wins %></td>
+						<td><%= user.losses.nil? ? 0 : user.losses %></td>
+						<td><%= link_to "View Profile", user, :class => "btn" %></td>
+					</tr>
+				<% end %>
 			</tbody>
 		</table>
 	</div>
