@@ -5,7 +5,7 @@
 	</div>
 	<div class="col s6">
 	<h2>Edit Profile</h2>
-		<%= form_for @user, url: {action: 'create'} do |f| %>
+		<%= form_for @user, url: {action: 'update'} do |f| %>
 			<%= f.text_field :first_name, :placeholder => "First Name" %>
 			<% if @user.errors.full_messages_for(:first_name).first %>
 				<div class="card card-panel red red-lighten-1">
@@ -30,11 +30,16 @@
 					<% end %>
 				</div>
 			<% end %>
-			<!-- Temporarily removed Username entry, copy from new.html.erb -->
-			<!-- Temporarily removed Password entry, copy from new.html.erb -->
+			<%= f.text_field :username, :placeholder => "Username" %>
+			<% if @user.errors.full_messages_for(:username).first %>
+				<div class="card card-panel red red-lighten-1">
+					<% @user.errors.full_messages_for(:username).each do |error| %>
+						<%= error %><br>
+					<% end %>
+				</div>
+			<% end %>
 			<%= f.submit "Save Changes", :class => "btn waves-effect" %>
-			<%= link_to "Cancel", user_path, :class => "btn waves-effect" %>
+			<%= link_to "Cancel", @user, :class => "btn waves-effect" %>
 		<% end %>
 	</div>
-	
 </div>

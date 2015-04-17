@@ -36,7 +36,14 @@ class UsersController < ApplicationController
   end
 
   def update
-
+    @user = User.find_by_id(params[:id])
+    if @user.update(user_params)
+      current_user = @user
+      redirect_to @user
+    else
+      flash.alert = "There was an error saving your profile"
+      render 'edit'
+    end
   end
 
   private
