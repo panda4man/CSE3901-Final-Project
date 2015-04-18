@@ -4,6 +4,6 @@ class GameMailer < ApplicationMailer
 		@to = to
 		@game  = game
 		@url = 'http://google.com'
-		mail(to: @to.email, subject: "Join #{@from.first_name} for a game of hangman?")
+		mail(to: @to.email, subject: "Join #{@to.first_name} for a game of hangman?")
 	end
 end
