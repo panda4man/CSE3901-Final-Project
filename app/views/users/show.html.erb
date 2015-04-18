@@ -8,7 +8,7 @@
 			<span class="yText">Name:</span> <%=  @user.first_name %>&nbsp;<%= @user.last_name %><br>
 			<span class="yText">Email:</span> <%= @user.email %><br>
 			<span class="yText">User ID:</span> <%= @user.id%><br>
-			<span class="yText">Record (W/L):</span> <%= @user.wins %>/<%= @user.losses %>
+			<span class="yText">Record (W/L):</span> <%= @user.wins.nil? ? 0 : @user.wins %>/<%= @user.losses.nil? ? 0 : @user.losses %>
 
 		</p>
 		<% if @user.id == @current_user.id %>
