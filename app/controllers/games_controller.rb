@@ -42,13 +42,15 @@ class GamesController < ApplicationController
 		if @game.nil?
       redirect_to users_path, :flash => {:notice => "Error loading game."}
     else
-    	render layout: "game"
+    	if @game.stop? || @game.game_over?
+    		redirect_to users_path, :flash => {:notice => "Game is over!"}
+    	else
+    		render layout: "game"
+    	end
     end
 	end
 
 	# This method handles posts to update the current game state
-
-	### TO DO - If game is over pull winning user and update user's wins #####
 	def update_game
 		game = Game.find_by_id(params[:id])
 		turn = params[:turn].to_i
