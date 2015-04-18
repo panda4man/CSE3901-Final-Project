@@ -6,8 +6,13 @@
 <div class="row board-upper">
 
 	<!-- player 1 -->
-	<div class="col s2 offset-s2 gallow">
-		<%= image_tag 'hangman/L/hangman0', :id => 'left-player', :class => 'responsive-img',:style => 'vertical-align: middle;' %>
+	<div class="col s2 offset-s2 gallow left-hm">
+		<%= image_tag 'hangman/L/hangman0', :id => 'LP0', :class => 'left-player responsive-img' %>
+		<%= image_tag 'hangman/L/hangman1', :id => 'LP1', :class => 'left-player responsive-img' %>
+		<%= image_tag 'hangman/L/hangman2', :id => 'LP2', :class => 'left-player responsive-img' %>
+		<%= image_tag 'hangman/L/hangman3', :id => 'LP3', :class => 'left-player responsive-img' %>
+		<%= image_tag 'hangman/L/hangman4', :id => 'LP4', :class => 'left-player responsive-img' %>
+		<%= image_tag 'hangman/L/hangman5', :id => 'LP5', :class => 'left-player responsive-img' %>
 	</div>
 	<!-- Center -->
 	<div class="col s4">
@@ -58,8 +63,13 @@
 	</div>
 
 	<!-- player 2 -->
-	<div class="col s2 gallow">
-		<%= image_tag 'hangman/R/hangman0', :id => 'right-player', :class => 'responsive-img',:style => 'vertical-align: middle;' %>
+	<div class="col s2 gallow right-hm">
+		<%= image_tag 'hangman/R/hangman0', :id => 'RP0', :class => 'right-player responsive-img' %>
+		<%= image_tag 'hangman/R/hangman1', :id => 'RP1', :class => 'right-player responsive-img' %>
+		<%= image_tag 'hangman/R/hangman2', :id => 'RP2', :class => 'right-player responsive-img' %>
+		<%= image_tag 'hangman/R/hangman3', :id => 'RP3', :class => 'right-player responsive-img' %>
+		<%= image_tag 'hangman/R/hangman4', :id => 'RP4', :class => 'right-player responsive-img' %>
+		<%= image_tag 'hangman/R/hangman5', :id => 'RP5', :class => 'right-player responsive-img' %>
 	</div>
 
 </div>
@@ -250,6 +260,77 @@
 					} else if(<%= current_user.id %> == data.second_user_id && data.turn == 0) {
 						switch_turn(false);
 					}
+
+					if(getGameStorage().first_user_misses == 0){
+						$("#LP0").show();
+					} else {
+						$("#LP0").hide();
+					}
+
+					if(getGameStorage().first_user_misses == 1){
+						$("#LP1").show();
+					} else {
+						$("#LP1").hide();
+					}
+
+					if(getGameStorage().first_user_misses == 2){
+						$("#LP2").show();
+					} else {
+						$("#LP2").hide();
+					}
+
+					if(getGameStorage().first_user_misses == 3){
+						$("#LP3").show();
+					} else {
+						$("#LP3").hide();
+					}
+
+					if(getGameStorage().first_user_misses == 4){
+						$("#LP4").show();
+					} else {
+						$("#LP4").hide();
+					}
+					if(getGameStorage().first_user_misses == 5){
+						$("#LP5").show();
+					} else {
+						$("#LP5").hide();
+					}
+
+					if(getGameStorage().second_user_misses == 0){
+						$("#RP0").show();
+					} else {
+						$("#RP0").hide();
+					}
+
+					if(getGameStorage().second_user_misses == 1){
+						$("#RP1").show();
+					} else {
+						$("#RP1").hide();
+					}
+
+					if(getGameStorage().second_user_misses == 2){
+						$("#RP2").show();
+					} else {
+						$("#RP2").hide();
+					}
+
+					if(getGameStorage().second_user_misses == 3){
+						$("#RP3").show();
+					} else {
+						$("#RP3").hide();
+					}
+
+					if(getGameStorage().second_user_misses == 4){
+						$("#RP4").show();
+					} else {
+						$("#RP4").hide();
+					}
+					if(getGameStorage().second_user_misses == 5){
+						$("#RP5").show();
+					} else {
+						$("#RP5").hide();
+					}
+
 				},
 				error: function (err) {
 					console.log(err);
