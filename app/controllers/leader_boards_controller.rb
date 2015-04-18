@@ -1,5 +1,5 @@
 class LeaderBoardsController < ApplicationController
   def index
-  	@users = User.all
+  	@users = User.all.order(wins: :desc)
   end
 end
