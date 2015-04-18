@@ -106,6 +106,11 @@
 			}
 		}
 
+		/**
+		 * This sets the correct/incorrect letter arrays
+		 * @param boolean bool  toggle between correct/incorrect
+		 * @param object array the object we are setting in storage
+		 */
 		function setLetters(bool, array) {
 			if(bool){
 				localStorage.setItem('CSE3901_correct_letters', JSON.stringify(array));
@@ -264,11 +269,13 @@
 				if(game_status == 1){
 					game.game_over = true;
 					game.winner = <%= @current_user.id %>;
+					game.first_user_misses = incorrect_letters.length;
 					setGameStorage(post(game));
 					stopGame();
 				} else if(game_status == 0) {
 					game.game_over = true;
 					game.winner = game.second_user_id;
+					game.first_user_misses = incorrect_letters.length;
 					setGameStorage(post(game));
 					stopGame();
 				} else {
@@ -280,11 +287,13 @@
 				if(game_status == 1){
 					game.game_over = true;
 					game.winner = <%= @current_user.id %>;
+					game.second_user_misses = incorrect_letters.length;
 					setGameStorage(post(game));
 					stopGame();
 				} else if(game_status == 0) {
 					game.game_over = true;
 					game.winner = game.first_user_id;
+					game.second_user_misses = incorrect_letters.length;
 					setGameStorage(post(game));
 					stopGame();
 				} else {

@@ -52,6 +52,8 @@ class GamesController < ApplicationController
 	def update_game
 		game = Game.find_by_id(params[:id])
 		turn = params[:turn].to_i
+		first_user_misses = params[:first_user_misses].to_i
+		second_user_misses = params[:second_user_misses].to_i
 		game_over = params[:game_over].to_s == "false" ? false : true 
 
 		if !game.nil? && !game.stop?
@@ -62,20 +64,14 @@ class GamesController < ApplicationController
 				else
 					turn = 0
 				end
-				if game.update_attribute(:turn, turn)
-					respond_to do |format|
-		  			format.json { render json: game}
-		  			format.html {redirect_to root_path}
-		  		end
-				else
-					respond_to do |format|
-		  			format.json { render json: {:error => true} }
-		  			format.html {redirect_to root_path}
-		  		end
+				game.update_attributes(:turn => turn, :first_user_misses => first_user_misses, :second_user_misses => second_user_misses)
+				respond_to do |format|
+		  		format.json { render json: game}
+		  		format.html {redirect_to root_path}
 				end
 	  	else
 	  		#when game is over
-	  		game.update_attributes(:game_over => true, :stop => true, :winner => params[:winner].to_i)
+	  		game.update_attributes(:first_user_misses => first_user_misses, :second_user_misses => second_user_misses, :game_over => true, :stop => true, :winner => params[:winner].to_i)
 	  		#update winners wins by 1
 	  		winner = User.find_by_id(params[:winner])
 	  		wins = winner.wins.nil? ? 0 : winner.wins
