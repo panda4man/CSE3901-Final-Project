@@ -3,6 +3,14 @@
 		<h3><%= @game.name %></h3>
 	</div> 
 </div>
+<div class="row" style="margin-bottom:-5px">
+	<div class="col s2 offset-s2">
+		<h4 class="white-text center"><%= @first_user.username %></h4>
+	</div>
+	<div class="col s2 offset-s4">
+		<h4 class="white-text center"><%= @second_user.username %></h4>
+	</div>
+</div>
 <div class="row board-upper">
 
 	<!-- player 1 -->
@@ -66,7 +74,8 @@
 <div class="row board-lower board-lower">
 	<div class="col s4 offset-s4 center word">
 		<div class="row">
-			<h4 class="white-text">Word to Solve</h4>
+			<h4 class="white-text" id="letters-to-guess">
+			</h4>
 		</div>
 	</div>
 
@@ -235,6 +244,7 @@
 					console.log('in get data return');
 					console.log(data);
 					setGameStorage(data);
+					drawGuessedLetters();
 					//if current user is first user and it is their turn
 					if(<%= current_user.id %> == data.first_user_id && data.turn == 0){
 						//unlock the board
@@ -336,6 +346,33 @@
 			$('.letter').each(function () {
 				$(this).addClass('wait-turn');
 			});
+		}
+
+		/**
+		 * This method handles redrawing the currently correctly guessed letters at the bottom
+		 */
+		function drawGuessedLetters () {
+			var word = getWord();
+			var wrapper = $('#letters-to-guess');
+			wrapper.empty();
+			var correct_letters = getLetters(true);
+			for(var i = 0; i < word.length; i++){
+				var current_letter = word[i];
+				var found = false;
+				for(var j = 0; j < correct_letters.length; j++){
+					if (current_letter == correct_letters[j]){
+						found = true;
+						break;
+					}
+				}
+				var letter = $('<div></div>').addClass('letter-guessed');
+				if(found){
+					letter.text(current_letter);
+				} else {
+					letter.html("&nbsp;&nbsp;");
+				}
+				wrapper.append(letter);
+			}
 		}
 
 		/**

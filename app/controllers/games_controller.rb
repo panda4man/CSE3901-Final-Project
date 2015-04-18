@@ -39,6 +39,8 @@ class GamesController < ApplicationController
 
 	def show
 		@game = Game.find_by_id(params[:id])
+		@first_user = User.find_by_id(@game.first_user_id)
+		@second_user = User.find_by_id(@game.second_user_id)
 		if @game.nil?
       redirect_to users_path, :flash => {:notice => "Error loading game."}
     else
