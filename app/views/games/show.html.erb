@@ -55,11 +55,6 @@
 				<div class="letter" data-letter="z"><p>Z</p></div>
 			</div>
 		</div>
-
-		<!-- Word -->
-		
-
-
 	</div>
 
 	<!-- player 2 -->
@@ -140,14 +135,13 @@
 				letters.push(letter);
 				setLetters(true, letters);
 				console.log('correct letter!')
-				console.log(getLetters(bool));
 			} else {
 				//put it in incorrect array
 				letters.push(letter);
 				setLetters(false, letters);
 				console.log('incorrect letter!!');
-				console.log(getLetters(bool));
 			}
+			console.log(getLetters(bool));
 		}
 
 		/**
@@ -189,6 +183,8 @@
 					count++;
 				}
 			}
+
+			//see if they guessed the word correctly or not
 			if(count == 0) {
 			   	addLetter(false, letter);
 			} else {
@@ -197,15 +193,28 @@
 				}
 			}
 
+			//find the letter they just guessed and permanently disable it
+			$('.letter').each(function () {
+				if($(this).data('letter') == letter){
+					$(this).addClass('used-letter');
+				}
+			});
+
+			//check hte status of the game
 			var game_status = checkWinLoss();
 
+			//send data back to server
 			send_data(game_status);
 		}
 
 		/**
 		 * This method handles a letter click.
 		 */
-		$('.letter, #test-turn').click(function () {
+		$('.letter').click(function (e) {
+			if($(this).hasClass('used-letter')){
+				e.preventDefault();
+				return false;
+			}
 			var letter = $(this).data('letter');
 			handleLetter(letter);
 		});
@@ -258,17 +267,16 @@
 			var correct_letters = getLetters(true);
 			var incorrect_letters = getLetters(false);
 			if (game.first_user_id == <%= @current_user.id %>) {
+				game.first_user_misses = incorrect_letters.length;
 				//check if the first user just won or lost
 				if(game_status == 1){
 					game.game_over = true;
 					game.winner = <%= @current_user.id %>;
-					game.first_user_misses = incorrect_letters.length;
 					setGameStorage(post(game));
 					stopGame();
 				} else if(game_status == 0) {
 					game.game_over = true;
 					game.winner = game.second_user_id;
-					game.first_user_misses = incorrect_letters.length;
 					setGameStorage(post(game));
 					stopGame();
 				} else {
@@ -276,17 +284,16 @@
 					setGameStorage(post(game));
 				}
 			} else {
+				game.second_user_misses = incorrect_letters.length;
 				//check if hte second user just won or lost
 				if(game_status == 1){
 					game.game_over = true;
 					game.winner = <%= @current_user.id %>;
-					game.second_user_misses = incorrect_letters.length;
 					setGameStorage(post(game));
 					stopGame();
 				} else if(game_status == 0) {
 					game.game_over = true;
 					game.winner = game.first_user_id;
-					game.second_user_misses = incorrect_letters.length;
 					setGameStorage(post(game));
 					stopGame();
 				} else {
@@ -326,17 +333,26 @@
 			setGameStorage({});
 			setLetters(true, []);
 			setLetters(false, []);
-			$('.letter, #test-turn').hide();
-			//display game over message
+			$('.letter').each(function () {
+				$(this).addClass('wait-turn');
+			});
 		}
 
+		/**
+		 * This method switches the turn from first to second or second to first
+		 * @param  boolean check use this variable to toggle the user
+		 */
 		function switch_turn (check) {
 			if(check){
 				console.log('UNDISABLING THE BUTTON');
-				$('.letter, #test-turn').show();
+				$('.letter').each(function () {
+					$(this).removeClass('wait-turn');
+				});
 			} else {
 				console.log('DISABLING THE BUTTON');
-				$('.letter, #test-turn').hide();
+				$('.letter').each(function () {
+					$(this).addClass('wait-turn');
+				});
 			}
 		}
 	});
