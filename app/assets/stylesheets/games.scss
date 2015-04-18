@@ -5,11 +5,11 @@
 
 .letter {
 	display: inline-block;
-	-moz-appearance:button;
-	-webkit-appearance:button;
+	background-color: rgba(20,20,20,0.9);
+	color: yellow;
 	//min-width: 35px;
 	//max-height: 35px;
-	width: 50px;
+	width: 10%;
 	height: 50px;
 	text-align: center;
 	vertical-align: middle;
