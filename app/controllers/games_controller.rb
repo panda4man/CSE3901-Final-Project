@@ -6,18 +6,18 @@ class GamesController < ApplicationController
 	def create
 		@game = Game.new(game_params)
 
-		# check for valid level choice
-		if !(@game.level > 0) || !(@game.level < 6)
-			flash.alert = "Unable to find level."
-			render :new
-		
-		elsif @game.valid?
+		if @game.valid?
 
 			# Grab second user by email
 			@to = User.find_by_email(@game.invitee_email)
 
+			# check for valid level choice
+			if !(@game.level > 0) || !(@game.level < 6)
+				flash.alert = "Unable to find level."
+				render :new
+		
 			# If we found the user by email
-			if !@to.nil?
+			elsif !@to.nil?
 				# Set first id to current user
 				@game.first_user_id = @current_user.id
 				# Set the second id to the invited users id
