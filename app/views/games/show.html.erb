@@ -1,7 +1,9 @@
 
 <div id="dim">
-	<div class="game-over">
+	<div class="game-over center">
 		<%= image_tag 'hangman/go' %>
+		<h2 class="you-win">You Win!</h2>
+		<h2 class="you-lose">You Lose</h2>
 	</div>
 </div>
 
@@ -104,6 +106,9 @@
 
 <script type="text/javascript">
 	$(document).ready(function () {
+
+		isWinner = false;
+
 		//As soon as the page starts
 		$("#dim").hide();
 		get_game();
@@ -300,6 +305,7 @@
 			drawSticks();
 			if (game.first_user_id == <%= @current_user.id %>) {
 				game.first_user_misses = incorrect_letters.length;
+				isWinner = true;
 				//check if the first user just won or lost
 				if(game_status == 1){
 					game.game_over = true;
@@ -495,6 +501,13 @@
 
 		function notifyResult(){
 			$("#dim").fadeIn(4000);
+			$(".you-lose").hide();
+			$(".you-win").hide();
+			if(isWinner){
+				$(".you-win").show();
+			} else {
+				$(".you-lose").show();
+			}
 		}
 	});
 </script>
