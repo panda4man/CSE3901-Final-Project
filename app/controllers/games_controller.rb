@@ -52,6 +52,8 @@ class GamesController < ApplicationController
     else
     	if @game.stop? || @game.game_over?
     		redirect_to leader_boards_path, :flash => {:notice => "Game is over!"}
+    	elsif (@current_user.id != @game.first_user_id) || (@current_user.id != @game.second_user_id)
+    		redirect_to leader_boards_path, :flash => {:notice => "You have not been invited to this game."}	
     	else
     		render layout: "game"
     	end
