@@ -1,3 +1,10 @@
+
+<div id="dim">
+	<div class="game-over">
+		<%= image_tag 'hangman/go' %>
+	</div>
+</div>
+
 <div class="row">
 	<div class="col s6 offset-s3 center">
 		<h3><%= @game.name %></h3>
@@ -93,9 +100,12 @@
 
 
 
+
+
 <script type="text/javascript">
 	$(document).ready(function () {
 		//As soon as the page starts
+		$("#dim").hide();
 		get_game();
 		//begin grabbing the game state every 30 seconds
 		var game_state = setInterval(function() { get_game() }, 5000);
@@ -300,6 +310,7 @@
 					game.game_over = true;
 					game.winner = game.second_user_id;
 					setGameStorage(post(game));
+					notifyResult();
 					stopGame();
 				} else {
 					switch_turn(false);
@@ -317,6 +328,7 @@
 					game.game_over = true;
 					game.winner = game.first_user_id;
 					setGameStorage(post(game));
+					notifyResult();
 					stopGame();
 				} else {
 					switch_turn(false);
@@ -479,6 +491,10 @@
 					$(this).addClass('wait-turn');
 				});
 			}
+		}
+
+		function notifyResult(){
+			$("#dim").fadeIn(4000);
 		}
 	});
 </script>
