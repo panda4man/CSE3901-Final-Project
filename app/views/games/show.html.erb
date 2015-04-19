@@ -379,71 +379,72 @@
 
 		function drawSticks () {
 			//drawing the stick figures
-			if(getGameStorage().first_user_misses == 0){
+			var game = getGameStorage();
+			if(game.first_user_misses == 0){
 				$("#LP0").show();
 			} else {
 				$("#LP0").hide();
 			}
 
-			if(getGameStorage().first_user_misses == 1){
+			if(game.first_user_misses == 1){
 				$("#LP1").show();
 			} else {
 				$("#LP1").hide();
 			}
 
-			if(getGameStorage().first_user_misses == 2){
+			if(game.first_user_misses == 2){
 				$("#LP2").show();
 			} else {
 				$("#LP2").hide();
 			}
 
-			if(getGameStorage().first_user_misses == 3){
+			if(game.first_user_misses == 3){
 				$("#LP3").show();
 			} else {
 				$("#LP3").hide();
 			}
 
-			if(getGameStorage().first_user_misses == 4){
+			if(game.first_user_misses == 4){
 				$("#LP4").show();
 			} else {
 				$("#LP4").hide();
 			}
-			if(getGameStorage().first_user_misses == 5){
+			if(game.first_user_misses == 5){
 				$("#LP5").show();
 			} else {
 				$("#LP5").hide();
 			}
 
-			if(getGameStorage().second_user_misses == 0){
+			if(game.second_user_misses == 0){
 				$("#RP0").show();
 			} else {
 				$("#RP0").hide();
 			}
 
-			if(getGameStorage().second_user_misses == 1){
+			if(game.second_user_misses == 1){
 				$("#RP1").show();
 			} else {
 				$("#RP1").hide();
 			}
 
-			if(getGameStorage().second_user_misses == 2){
+			if(game.second_user_misses == 2){
 				$("#RP2").show();
 			} else {
 				$("#RP2").hide();
 			}
 
-			if(getGameStorage().second_user_misses == 3){
+			if(game.second_user_misses == 3){
 				$("#RP3").show();
 			} else {
 				$("#RP3").hide();
 			}
 
-			if(getGameStorage().second_user_misses == 4){
+			if(game.second_user_misses == 4){
 				$("#RP4").show();
 			} else {
 				$("#RP4").hide();
 			}
-			if(getGameStorage().second_user_misses == 5){
+			if(game.second_user_misses == 5){
 				$("#RP5").show();
 			} else {
 				$("#RP5").hide();
