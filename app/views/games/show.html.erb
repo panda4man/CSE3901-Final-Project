@@ -246,7 +246,7 @@
 		 * This method handles a letter click.
 		 */
 		$('.letter').click(function (e) {
-			if($(this).hasClass('used-letter')){
+			if($(this).hasClass('used-letter') || $(this).hasClass('wait-turn')){
 				e.preventDefault();
 				return false;
 			}
