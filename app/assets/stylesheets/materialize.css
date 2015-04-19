@@ -5701,7 +5701,7 @@ button.btn-floating {
     text-align: left;
     text-transform: none; }
     .dropdown-content li:hover, .dropdown-content li.active {
-      background-color: #eee; }
+      background-color: #555; }
     .dropdown-content li > a, .dropdown-content li > span {
       font-size: 1.2rem;
       color: #26a69a;
