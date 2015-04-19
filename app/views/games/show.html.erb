@@ -3,6 +3,7 @@
 	<div class="game-over center">
 		<%= image_tag 'hangman/go' %>
 		<h2 class="you-win">You Win!</h2>
+		<h2 class="you-win"><%= @game.word %></h2>
 		<h2 class="you-lose">You Lose</h2>
 	</div>
 </div>
