@@ -305,6 +305,7 @@
 					game.game_over = true;
 					game.winner = <%= @current_user.id %>;
 					setGameStorage(post(game));
+					notifyResult();
 					stopGame();
 				} else if(game_status == 0) {
 					game.game_over = true;
@@ -323,6 +324,7 @@
 					game.game_over = true;
 					game.winner = <%= @current_user.id %>;
 					setGameStorage(post(game));
+					notifyResult();
 					stopGame();
 				} else if(game_status == 0) {
 					game.game_over = true;
