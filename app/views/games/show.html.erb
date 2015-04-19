@@ -305,13 +305,11 @@
 					game.game_over = true;
 					game.winner = <%= @current_user.id %>;
 					setGameStorage(post(game));
-					notifyResult();
 					stopGame();
 				} else if(game_status == 0) {
 					game.game_over = true;
 					game.winner = game.second_user_id;
 					setGameStorage(post(game));
-					notifyResult();
 					stopGame();
 				} else {
 					switch_turn(false);
@@ -324,13 +322,11 @@
 					game.game_over = true;
 					game.winner = <%= @current_user.id %>;
 					setGameStorage(post(game));
-					notifyResult();
 					stopGame();
 				} else if(game_status == 0) {
 					game.game_over = true;
 					game.winner = game.first_user_id;
 					setGameStorage(post(game));
-					notifyResult();
 					stopGame();
 				} else {
 					switch_turn(false);
@@ -375,6 +371,7 @@
 			$('.letter').each(function () {
 				$(this).addClass('wait-turn');
 			});
+			notifyResult();
 		}
 
 		function drawSticks () {
