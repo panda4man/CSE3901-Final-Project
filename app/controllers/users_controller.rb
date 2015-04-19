@@ -34,11 +34,18 @@ class UsersController < ApplicationController
 
   def update
     @user = User.find_by_id(params[:id])
-    if @user.update(user_params)
-      current_user = @user
-      redirect_to @user
+    auth = User.authenticate(user_params[:email], user_params[:password])
+    if !auth.nil?
+      if @user.update(user_params)
+        current_user = @user
+        flash.alert = "Profile updated."
+        redirect_to @user
+      else
+        flash.alert = "There was an error saving your profile"
+        render 'edit'
+      end
     else
-      flash.alert = "There was an error saving your profile"
+      flash.alert = "You entered an incorrect password."
       render 'edit'
     end
   end
