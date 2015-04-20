@@ -20,6 +20,8 @@ test:
   <<: *default
   database: db/test.sqlite3
 
+# We were going to attempt to host this on Dreamhost
+# but that did not work out sadly.
 production:
   adapter: mysql
   database: cse3901_hangman

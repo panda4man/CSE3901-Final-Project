@@ -50,6 +50,16 @@ class UsersController < ApplicationController
     end
   end
 
+  def destroy
+    @user = User.find_by_id(@current_user.id)
+    if !@user.nil?
+      @user.destroy
+      sign_out
+    else
+      redirect_to @user, :flash => {:error => "An error occurred."}
+    end
+  end
+
   private
 
   def user_params

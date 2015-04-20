@@ -14,6 +14,7 @@
 		<% if @user.id == @current_user.id %>
 		<%= link_to "Start Game", new_game_path, :class => "btn waves-affect deep-orange darken-4" %> &nbsp;
 		<%= link_to "Edit Profile", edit_user_path, :class => "btn waves-affect deep-orange darken-4" %>
+		<%= button_to "Remove Account", @user, :method => :delete, :class => "btn waves-affect deep-orange darken-4" %>		
 		<% end %>
 	</div>
 </div>
