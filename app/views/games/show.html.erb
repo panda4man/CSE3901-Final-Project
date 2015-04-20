@@ -322,7 +322,6 @@
 				} else if(game_status == 0) {
 					game.game_over = true;
 					p1Loss = true;
-					wID = <%= @current_user.id %>;
 					game.winner = game.second_user_id;
 					setGameStorage(post(game));
 					stopGame();
@@ -343,7 +342,6 @@
 				} else if(game_status == 0) {
 					game.game_over = true;
 					p2Loss = true;
-					wID = <%= @current_user.id %>;
 					game.winner = game.first_user_id;
 					setGameStorage(post(game));
 					stopGame();
