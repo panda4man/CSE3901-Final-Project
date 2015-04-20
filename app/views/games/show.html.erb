@@ -286,7 +286,11 @@
 						//unlock the board
 						switch_turn(true);
 					} else if (data.game_over) {
-						stopGame();
+						if(data.winner && data.winner == <%= current_user.id %>) {
+							stopGame(true);
+						} else {
+							stopGame(false);ok
+						}
 					} else if (<%= current_user.id %> == data.first_user_id && data.turn == 1) {
 						switch_turn(false);
 					} else if(<%= current_user.id %> == data.second_user_id && data.turn == 0) {
@@ -314,18 +318,14 @@
 				//check if the first user just won or lost
 				if(game_status == 1){
 					game.game_over = true;
-					p1Win = true;
-					wID = <%= @current_user.id %>;
 					game.winner = <%= @current_user.id %>;
 					setGameStorage(post(game));
-					stopGame();
+					stopGame(true);
 				} else if(game_status == 0) {
 					game.game_over = true;
-					p1Loss = true;
-					wID = <%= @current_user.id %>;
 					game.winner = game.second_user_id;
 					setGameStorage(post(game));
-					stopGame();
+					stopGame(false);
 				} else {
 					switch_turn(false);
 					setGameStorage(post(game));
@@ -335,18 +335,14 @@
 				//check if the second user just won or lost
 				if(game_status == 1){
 					game.game_over = true;
-					p2Win = true;
-					wID = <%= @current_user.id %>;
 					game.winner = <%= @current_user.id %>;
 					setGameStorage(post(game));
-					stopGame();
+					stopGame(true);
 				} else if(game_status == 0) {
 					game.game_over = true;
-					p2Loss = true;
-					wID = <%= @current_user.id %>;
 					game.winner = game.first_user_id;
 					setGameStorage(post(game));
-					stopGame();
+					stopGame(false);
 				} else {
 					switch_turn(false);
 					setGameStorage(post(game));
@@ -381,7 +377,7 @@
 		/**
 		 * This method stops the update game method
 		 */
-		function stopGame () {
+		function stopGame (winner_loser) {
 			console.log('stopping the game :)');
 			clearInterval(game_state);
 			setGameStorage({});
@@ -390,7 +386,7 @@
 			$('.letter').each(function () {
 				$(this).addClass('wait-turn');
 			});
-			notifyResult();
+			notifyResult(winner_loser);
 		}
 
 		function drawSticks () {
@@ -515,17 +511,14 @@
 		/**
 		 * This method displays results of game for each user
 		 */
-		function notifyResult(){
+		function notifyResult(winner_loser){
 
 			$("#dim").fadeIn(4000);
 			$(".you-lose").hide();
 			$(".you-win").hide();
 			$(".mys-wrd").hide();
-			if(wID == <%= @current_user.id %>){
+			if(winner_loser){
 				$(".you-win").show();
-				if(!p1Loss && !p2Loss){
-					$(".mys-wrd").show();
-				}
 			} else {
 				$(".you-lose").show();
 			}
