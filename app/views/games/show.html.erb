@@ -3,7 +3,7 @@
 	<div class="game-over center">
 		<%= image_tag 'hangman/go' %>
 		<h2 class="you-win">You Win!</h2>
-		<h2 class="you-win"><%= @game.word %></h2>
+		<h2 class="mys-wrd"><%= @game.word %></h2>
 		<h2 class="you-lose">You Lose</h2>
 	</div>
 </div>
@@ -106,9 +106,14 @@
 
 
 <script type="text/javascript">
-	$(document).ready(function () {
 
-		isWinner = false;
+	p1Win = false;
+	p1Loss = false;
+	p2Win = false;
+	p2Loss = false;
+	wID = -1;
+
+	$(document).ready(function () {
 
 		//As soon as the page starts
 		$("#dim").hide();
@@ -306,15 +311,18 @@
 			drawSticks();
 			if (game.first_user_id == <%= @current_user.id %>) {
 				game.first_user_misses = incorrect_letters.length;
-				isWinner = true;
 				//check if the first user just won or lost
 				if(game_status == 1){
 					game.game_over = true;
+					p1Win = true;
+					wID = <%= @current_user.id %>;
 					game.winner = <%= @current_user.id %>;
 					setGameStorage(post(game));
 					stopGame();
 				} else if(game_status == 0) {
 					game.game_over = true;
+					p1Loss = true;
+					wID = <%= @current_user.id %>;
 					game.winner = game.second_user_id;
 					setGameStorage(post(game));
 					stopGame();
@@ -324,14 +332,18 @@
 				}
 			} else {
 				game.second_user_misses = incorrect_letters.length;
-				//check if hte second user just won or lost
+				//check if the second user just won or lost
 				if(game_status == 1){
 					game.game_over = true;
+					p2Win = true;
+					wID = <%= @current_user.id %>;
 					game.winner = <%= @current_user.id %>;
 					setGameStorage(post(game));
 					stopGame();
 				} else if(game_status == 0) {
 					game.game_over = true;
+					p2Loss = true;
+					wID = <%= @current_user.id %>;
 					game.winner = game.first_user_id;
 					setGameStorage(post(game));
 					stopGame();
@@ -500,12 +512,20 @@
 			}
 		}
 
+		/**
+		 * This method displays results of game for each user
+		 */
 		function notifyResult(){
+
 			$("#dim").fadeIn(4000);
 			$(".you-lose").hide();
 			$(".you-win").hide();
-			if(isWinner){
+			$(".mys-wrd").hide();
+			if(wID == <%= @current_user.id %>){
 				$(".you-win").show();
+				if(!p1Loss && !p2Loss){
+					$(".mys-wrd").show();
+				}
 			} else {
 				$(".you-lose").show();
 			}
