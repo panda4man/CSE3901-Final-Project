@@ -315,13 +315,14 @@
 				if(game_status == 1){
 					game.game_over = true;
 					p1Win = true;
-					wID = <%= @current_user.id %>;
+					wID = game.first_user_id;
 					game.winner = <%= @current_user.id %>;
 					setGameStorage(post(game));
 					stopGame();
 				} else if(game_status == 0) {
 					game.game_over = true;
 					p1Loss = true;
+					wID = game.second_user_id;
 					game.winner = game.second_user_id;
 					setGameStorage(post(game));
 					stopGame();
@@ -335,13 +336,14 @@
 				if(game_status == 1){
 					game.game_over = true;
 					p2Win = true;
-					wID = <%= @current_user.id %>;
+					wID = game.second_user_id;
 					game.winner = <%= @current_user.id %>;
 					setGameStorage(post(game));
 					stopGame();
 				} else if(game_status == 0) {
 					game.game_over = true;
 					p2Loss = true;
+					wID = game.first_user_id;
 					game.winner = game.first_user_id;
 					setGameStorage(post(game));
 					stopGame();
