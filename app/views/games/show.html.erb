@@ -174,14 +174,14 @@
 				//put it in correct array
 				letters.push(letter);
 				setLetters(true, letters);
-				console.log('correct letter!')
+				//console.log('correct letter!')
 			} else {
 				//put it in incorrect array
 				letters.push(letter);
 				setLetters(false, letters);
-				console.log('incorrect letter!!');
+				//console.log('incorrect letter!!');
 			}
-			console.log(getLetters(bool));
+			//console.log(getLetters(bool));
 		}
 
 		/**
@@ -272,8 +272,8 @@
 				},
 				dataType: 'JSON',
 				success: function (data){
-					console.log('in get data return');
-					console.log(data);
+					//console.log('in get data return');
+					//console.log(data);
 					setGameStorage(data);
 					drawGuessedLetters();
 					drawSticks();
@@ -298,7 +298,7 @@
 					}
 				},
 				error: function (err) {
-					console.log(err);
+					//console.log(err);
 				}
 			})
 		}
@@ -332,7 +332,7 @@
 				}
 			} else {
 				game.second_user_misses = incorrect_letters.length;
-				//check if the second user just won or lost
+				//check if the second user just won or lostt
 				if(game_status == 1){
 					game.game_over = true;
 					game.winner = <%= @current_user.id %>;
@@ -361,15 +361,15 @@
 				data: data,
 				dataType: 'JSON',
 				success: function (data){
-					console.log('post return data...');
-					console.log(data);
+					//console.log('post return data...');
+					//console.log(data);
 					setGameStorage(data);
 					drawSticks();
 					drawGuessedLetters();
 					return data;
 				},
 				error: function (err) {
-					console.log(err);
+					//console.log(err);
 				}
 			});
 		}
@@ -378,7 +378,7 @@
 		 * This method stops the update game method
 		 */
 		function stopGame (winner_loser) {
-			console.log('stopping the game :)');
+			//console.log('stopping the game :)');
 			clearInterval(game_state);
 			setGameStorage({});
 			setLetters(true, []);
@@ -496,12 +496,12 @@
 		 */
 		function switch_turn (check) {
 			if(check){
-				console.log('UNDISABLING THE BUTTON');
+				//console.log('UNDISABLING THE BUTTON');
 				$('.letter').each(function () {
 					$(this).removeClass('wait-turn');
 				});
 			} else {
-				console.log('DISABLING THE BUTTON');
+				//console.log('DISABLING THE BUTTON');
 				$('.letter').each(function () {
 					$(this).addClass('wait-turn');
 				});
