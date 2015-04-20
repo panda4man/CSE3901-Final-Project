@@ -1,9 +1,9 @@
-<div class="row black-glass">
+<div class="row user-glass">
 	<div class="col s3 center">
 		<%= image_tag 'avatars/av01', :class => 'circle responsive-img' %>
 		<p><b><%= @user.username %></b></p>
 	</div>
-	<div class="col s6">
+	<div class="col s7">
 		<p>
 			<span class="yText">Name:</span> <%=  @user.first_name %>&nbsp;<%= @user.last_name %><br>
 			<span class="yText">Email:</span> <%= @user.email %><br>
@@ -13,7 +13,7 @@
 		</p>
 		<% if @user.id == @current_user.id %>
 		<%= link_to "Start Game", new_game_path, :class => "btn waves-affect deep-orange darken-4" %> &nbsp;
-		<%= link_to "Edit Profile", edit_user_path, :class => "btn waves-affect deep-orange darken-4" %>
+		<%= link_to "Edit Profile", edit_user_path, :class => "btn waves-affect deep-orange darken-4" %> <br><br>
 		<%= button_to "Remove Account", @user, :method => :delete, :class => "btn waves-affect deep-orange darken-4" %>		
 		<% end %>
 	</div>
