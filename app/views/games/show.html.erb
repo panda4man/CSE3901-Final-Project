@@ -107,6 +107,8 @@
 
 <script type="text/javascript">
 
+	
+
 	p1Win = false;
 	p1Loss = false;
 	p2Win = false;
@@ -117,6 +119,7 @@
 
 		//As soon as the page starts
 		$("#dim").hide();
+		$("#LP0").show();
 		get_game();
 		//begin grabbing the game state every 30 seconds
 		var game_state = setInterval(function() { get_game() }, 5000);
@@ -266,7 +269,7 @@
 		function get_game(){
 			$.ajax({
 				type:'GET',
-				url: 'http://localhost:3000/run-game',
+				url: '/run-game',
 				data: {
 					id: <%= @game.id %>
 				},
@@ -357,7 +360,7 @@
 		function post (data) {
 			$.ajax({
 				type:'POST',
-				url: 'http://localhost:3000/run-game',
+				url: '/run-game',
 				data: data,
 				dataType: 'JSON',
 				success: function (data){
